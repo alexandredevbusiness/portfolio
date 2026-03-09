@@ -1,0 +1,892 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Alex Moreau — Développeur Web Freelance</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg: #0d0d0d;
+      --surface: #161616;
+      --card: #1e1e1e;
+      --border: #2a2a2a;
+      --accent: #c8f060;
+      --accent2: #60c8f0;
+      --text: #f0ede8;
+      --muted: #888;
+      --serif: 'DM Serif Display', serif;
+      --sans: 'DM Sans', sans-serif;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: var(--sans);
+      font-size: 16px;
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+
+    /* ── NAV ── */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 1.25rem 4rem;
+      background: rgba(13,13,13,0.85);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border);
+    }
+    .nav-logo {
+      font-family: var(--serif);
+      font-size: 1.3rem;
+      color: var(--accent);
+      text-decoration: none;
+    }
+    .nav-links { display: flex; gap: 2.5rem; list-style: none; }
+    .nav-links a {
+      color: var(--muted);
+      text-decoration: none;
+      font-size: 0.9rem;
+      font-weight: 500;
+      letter-spacing: 0.04em;
+      transition: color 0.2s;
+    }
+    .nav-links a:hover { color: var(--text); }
+    .nav-cta {
+      background: var(--accent);
+      color: #0d0d0d;
+      padding: 0.6rem 1.4rem;
+      border-radius: 2rem;
+      font-weight: 600;
+      font-size: 0.85rem;
+      text-decoration: none;
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+    .nav-cta:hover { transform: translateY(-2px); box-shadow: 0 8px 24px rgba(200,240,96,0.3); }
+
+    /* ── HERO ── */
+    #hero {
+      min-height: 100vh;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      align-items: center;
+      padding: 8rem 4rem 4rem;
+      position: relative;
+      overflow: hidden;
+    }
+    .hero-bg {
+      position: absolute; inset: 0; pointer-events: none;
+      background: radial-gradient(ellipse 60% 60% at 80% 50%, rgba(96,200,240,0.07) 0%, transparent 70%),
+                  radial-gradient(ellipse 40% 40% at 20% 80%, rgba(200,240,96,0.05) 0%, transparent 60%);
+    }
+    .hero-grid-lines {
+      position: absolute; inset: 0; pointer-events: none;
+      background-image:
+        linear-gradient(var(--border) 1px, transparent 1px),
+        linear-gradient(90deg, var(--border) 1px, transparent 1px);
+      background-size: 80px 80px;
+      opacity: 0.3;
+      mask-image: radial-gradient(ellipse at center, black 30%, transparent 80%);
+    }
+    .hero-left { position: relative; z-index: 1; }
+    .hero-badge {
+      display: inline-flex; align-items: center; gap: 0.5rem;
+      background: rgba(200,240,96,0.1);
+      border: 1px solid rgba(200,240,96,0.25);
+      padding: 0.35rem 0.9rem;
+      border-radius: 2rem;
+      font-size: 0.8rem;
+      color: var(--accent);
+      font-weight: 500;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      margin-bottom: 1.5rem;
+      animation: fadeUp 0.6s ease both;
+    }
+    .hero-badge::before { content: '●'; font-size: 0.5rem; animation: pulse 2s infinite; }
+    @keyframes pulse { 0%,100%{opacity:1} 50%{opacity:0.3} }
+
+    h1 {
+      font-family: var(--serif);
+      font-size: clamp(2.8rem, 5vw, 4.5rem);
+      line-height: 1.1;
+      margin-bottom: 1.5rem;
+      animation: fadeUp 0.6s 0.1s ease both;
+    }
+    h1 em { color: var(--accent); font-style: italic; }
+    .hero-sub {
+      color: var(--muted);
+      font-size: 1.1rem;
+      max-width: 480px;
+      margin-bottom: 2.5rem;
+      animation: fadeUp 0.6s 0.2s ease both;
+    }
+    .hero-actions {
+      display: flex; gap: 1rem; flex-wrap: wrap;
+      animation: fadeUp 0.6s 0.3s ease both;
+    }
+    .btn-primary {
+      background: var(--accent);
+      color: #0d0d0d;
+      padding: 0.85rem 2rem;
+      border-radius: 2rem;
+      font-weight: 700;
+      font-size: 0.95rem;
+      text-decoration: none;
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+    .btn-primary:hover { transform: translateY(-3px); box-shadow: 0 12px 32px rgba(200,240,96,0.35); }
+    .btn-ghost {
+      border: 1px solid var(--border);
+      color: var(--text);
+      padding: 0.85rem 2rem;
+      border-radius: 2rem;
+      font-size: 0.95rem;
+      text-decoration: none;
+      transition: border-color 0.2s, background 0.2s;
+    }
+    .btn-ghost:hover { border-color: var(--accent); background: rgba(200,240,96,0.05); }
+
+    .hero-stats {
+      display: flex; gap: 3rem; margin-top: 3.5rem;
+      animation: fadeUp 0.6s 0.4s ease both;
+    }
+    .stat-num {
+      font-family: var(--serif);
+      font-size: 2.2rem;
+      color: var(--accent);
+      line-height: 1;
+    }
+    .stat-label { font-size: 0.8rem; color: var(--muted); margin-top: 0.2rem; }
+
+    .hero-right {
+      position: relative; z-index: 1;
+      display: flex; justify-content: center; align-items: center;
+      animation: fadeUp 0.8s 0.2s ease both;
+    }
+    .hero-card-stack { position: relative; width: 340px; height: 420px; }
+    .floating-card {
+      position: absolute;
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 1rem;
+      padding: 1.25rem 1.5rem;
+      backdrop-filter: blur(8px);
+    }
+    .card-main {
+      width: 300px; top: 40px; left: 20px;
+      animation: float1 6s ease-in-out infinite;
+    }
+    .card-code {
+      width: 220px; bottom: 20px; right: -10px;
+      animation: float2 7s ease-in-out infinite 0.5s;
+      font-family: monospace; font-size: 0.75rem; color: var(--muted);
+    }
+    .card-tag {
+      width: 140px; top: 0; right: 30px;
+      animation: float3 5s ease-in-out infinite 1s;
+      text-align: center;
+    }
+    @keyframes float1 { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-12px)} }
+    @keyframes float2 { 0%,100%{transform:translateY(0) rotate(-2deg)} 50%{transform:translateY(-8px) rotate(-2deg)} }
+    @keyframes float3 { 0%,100%{transform:translateY(0) rotate(3deg)} 50%{transform:translateY(-15px) rotate(3deg)} }
+
+    .card-label { font-size: 0.7rem; color: var(--muted); text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 0.5rem; }
+    .card-title { font-size: 1rem; font-weight: 600; margin-bottom: 0.75rem; }
+    .card-bar { height: 4px; border-radius: 2px; background: var(--border); overflow: hidden; margin-bottom: 0.5rem; }
+    .card-bar-fill { height: 100%; border-radius: 2px; background: var(--accent); }
+    .card-tech { display: flex; gap: 0.4rem; flex-wrap: wrap; margin-top: 0.75rem; }
+    .tech-pill {
+      font-size: 0.7rem; padding: 0.2rem 0.6rem;
+      background: rgba(200,240,96,0.12); color: var(--accent);
+      border-radius: 1rem;
+    }
+    .code-line { margin-bottom: 0.3rem; }
+    .code-kw { color: var(--accent2); }
+    .code-str { color: var(--accent); }
+    .tag-icon { font-size: 1.8rem; margin-bottom: 0.4rem; }
+    .tag-text { font-size: 0.7rem; color: var(--muted); }
+    .tag-score { font-size: 1.3rem; font-weight: 700; color: var(--text); }
+
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(20px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    /* ── SECTION BASE ── */
+    section { padding: 6rem 4rem; }
+    .section-label {
+      font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.15em;
+      color: var(--accent); font-weight: 600; margin-bottom: 1rem;
+    }
+    h2 {
+      font-family: var(--serif);
+      font-size: clamp(2rem, 3.5vw, 3rem);
+      line-height: 1.15;
+      margin-bottom: 1rem;
+    }
+    .section-sub { color: var(--muted); max-width: 560px; font-size: 1.05rem; }
+
+    /* ── SERVICES ── */
+    #services { background: var(--surface); }
+    .services-header { margin-bottom: 3.5rem; }
+    .services-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 1.5rem;
+    }
+    .service-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 1.25rem;
+      padding: 2rem;
+      transition: border-color 0.3s, transform 0.3s, box-shadow 0.3s;
+      position: relative;
+      overflow: hidden;
+    }
+    .service-card::before {
+      content: '';
+      position: absolute; top: 0; left: 0; right: 0; height: 2px;
+      background: linear-gradient(90deg, var(--accent), var(--accent2));
+      transform: scaleX(0); transform-origin: left;
+      transition: transform 0.3s;
+    }
+    .service-card:hover { border-color: rgba(200,240,96,0.3); transform: translateY(-4px); box-shadow: 0 16px 40px rgba(0,0,0,0.4); }
+    .service-card:hover::before { transform: scaleX(1); }
+    .service-icon { font-size: 2.2rem; margin-bottom: 1.25rem; }
+    .service-card h3 { font-size: 1.15rem; font-weight: 600; margin-bottom: 0.75rem; }
+    .service-card p { color: var(--muted); font-size: 0.9rem; line-height: 1.7; }
+    .service-tags { display: flex; gap: 0.5rem; flex-wrap: wrap; margin-top: 1.25rem; }
+    .service-tag {
+      font-size: 0.7rem; padding: 0.25rem 0.7rem;
+      background: var(--surface); color: var(--muted);
+      border: 1px solid var(--border); border-radius: 1rem;
+    }
+
+    /* ── PROJETS ── */
+    #projets { background: var(--bg); }
+    .projets-header { margin-bottom: 3.5rem; display: flex; justify-content: space-between; align-items: flex-end; }
+    .projets-grid {
+      display: grid;
+      grid-template-columns: repeat(12, 1fr);
+      gap: 1.25rem;
+    }
+    .projet-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 1.25rem;
+      overflow: hidden;
+      transition: transform 0.3s, box-shadow 0.3s;
+      display: flex; flex-direction: column;
+    }
+    .projet-card:hover { transform: translateY(-4px); box-shadow: 0 20px 50px rgba(0,0,0,0.5); }
+    .projet-card.large { grid-column: span 7; }
+    .projet-card.small { grid-column: span 5; }
+    .projet-card.full { grid-column: span 12; }
+
+    .projet-thumb {
+      height: 200px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 3.5rem;
+      position: relative; overflow: hidden;
+    }
+    .thumb-1 { background: linear-gradient(135deg, #1a2a1a, #2a4a1a); }
+    .thumb-2 { background: linear-gradient(135deg, #1a1a2a, #1a2a4a); }
+    .thumb-3 { background: linear-gradient(135deg, #2a1a1a, #3a1a2a); }
+    .thumb-4 { background: linear-gradient(135deg, #1a2a2a, #1a3a3a); }
+
+    .projet-body { padding: 1.5rem; flex: 1; display: flex; flex-direction: column; }
+    .projet-meta { display: flex; gap: 0.5rem; align-items: center; margin-bottom: 0.75rem; }
+    .projet-type {
+      font-size: 0.7rem; text-transform: uppercase; letter-spacing: 0.1em;
+      color: var(--accent); font-weight: 600;
+    }
+    .projet-year { font-size: 0.75rem; color: var(--muted); margin-left: auto; }
+    .projet-body h3 { font-size: 1.1rem; font-weight: 600; margin-bottom: 0.5rem; }
+    .projet-body p { color: var(--muted); font-size: 0.88rem; line-height: 1.7; flex: 1; }
+    .projet-footer { display: flex; justify-content: space-between; align-items: center; margin-top: 1.25rem; }
+    .projet-stack { display: flex; gap: 0.4rem; }
+    .stack-dot {
+      width: 28px; height: 28px; border-radius: 50%;
+      background: var(--surface); border: 1px solid var(--border);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 0.65rem; color: var(--muted);
+    }
+    .projet-link {
+      font-size: 0.8rem; color: var(--accent);
+      text-decoration: none; font-weight: 500;
+      display: flex; align-items: center; gap: 0.3rem;
+    }
+    .projet-link:hover { text-decoration: underline; }
+
+    /* ── PROCESSUS ── */
+    #processus { background: var(--surface); }
+    .processus-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 0;
+      margin-top: 3.5rem;
+      position: relative;
+    }
+    .processus-grid::before {
+      content: '';
+      position: absolute;
+      top: 2.5rem; left: 5%; right: 5%; height: 1px;
+      background: linear-gradient(90deg, transparent, var(--border), var(--border), transparent);
+    }
+    .step {
+      padding: 0 1.5rem 2rem;
+      text-align: center;
+      position: relative;
+    }
+    .step-num {
+      width: 48px; height: 48px; border-radius: 50%;
+      background: var(--card); border: 1px solid var(--border);
+      display: flex; align-items: center; justify-content: center;
+      font-family: var(--serif); font-size: 1.2rem; color: var(--accent);
+      margin: 0 auto 1.25rem;
+      position: relative; z-index: 1;
+      transition: background 0.3s, border-color 0.3s;
+    }
+    .step:hover .step-num { background: rgba(200,240,96,0.12); border-color: var(--accent); }
+    .step h3 { font-size: 1rem; font-weight: 600; margin-bottom: 0.5rem; }
+    .step p { font-size: 0.85rem; color: var(--muted); line-height: 1.6; }
+
+    /* ── TESTIMONIALS ── */
+    #temoignages { background: var(--bg); }
+    .temoignages-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 1.5rem;
+      margin-top: 3rem;
+    }
+    .temoignage-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 1.25rem;
+      padding: 2rem;
+    }
+    .stars { color: var(--accent); font-size: 1rem; margin-bottom: 1.25rem; letter-spacing: 0.1em; }
+    .temoignage-card blockquote {
+      font-size: 0.95rem; color: var(--text);
+      line-height: 1.75; font-style: italic;
+      margin-bottom: 1.5rem;
+    }
+    .temoignage-author { display: flex; align-items: center; gap: 0.85rem; }
+    .author-avatar {
+      width: 42px; height: 42px; border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.1rem;
+      background: var(--surface); border: 1px solid var(--border);
+    }
+    .author-name { font-weight: 600; font-size: 0.9rem; }
+    .author-role { font-size: 0.78rem; color: var(--muted); }
+
+    /* ── CONTACT ── */
+    #contact {
+      background: var(--surface);
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 5rem;
+      align-items: start;
+    }
+    .contact-left h2 { margin-bottom: 1rem; }
+    .contact-left p { color: var(--muted); line-height: 1.8; margin-bottom: 2rem; }
+    .contact-info { display: flex; flex-direction: column; gap: 1rem; }
+    .contact-item {
+      display: flex; align-items: center; gap: 0.85rem;
+      color: var(--muted); font-size: 0.9rem;
+    }
+    .contact-item-icon {
+      width: 36px; height: 36px; border-radius: 0.5rem;
+      background: var(--card); border: 1px solid var(--border);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 0.9rem; flex-shrink: 0;
+    }
+    .contact-right {}
+    .form-group { margin-bottom: 1.25rem; }
+    label { display: block; font-size: 0.82rem; font-weight: 500; color: var(--muted); margin-bottom: 0.5rem; letter-spacing: 0.04em; }
+    input, textarea, select {
+      width: 100%;
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 0.6rem;
+      padding: 0.85rem 1rem;
+      color: var(--text);
+      font-family: var(--sans);
+      font-size: 0.9rem;
+      transition: border-color 0.2s, box-shadow 0.2s;
+      outline: none;
+      appearance: none;
+    }
+    input:focus, textarea:focus, select:focus {
+      border-color: rgba(200,240,96,0.5);
+      box-shadow: 0 0 0 3px rgba(200,240,96,0.08);
+    }
+    textarea { height: 130px; resize: vertical; }
+    .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+    .form-submit {
+      width: 100%;
+      background: var(--accent);
+      color: #0d0d0d;
+      border: none;
+      border-radius: 2rem;
+      padding: 1rem;
+      font-size: 1rem;
+      font-weight: 700;
+      font-family: var(--sans);
+      cursor: pointer;
+      margin-top: 0.5rem;
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+    .form-submit:hover { transform: translateY(-2px); box-shadow: 0 10px 28px rgba(200,240,96,0.3); }
+
+    /* ── FOOTER ── */
+    footer {
+      background: var(--bg);
+      border-top: 1px solid var(--border);
+      padding: 2.5rem 4rem;
+      display: flex; align-items: center; justify-content: space-between;
+    }
+    .footer-logo { font-family: var(--serif); color: var(--accent); font-size: 1.2rem; }
+    .footer-text { font-size: 0.82rem; color: var(--muted); }
+    .footer-links { display: flex; gap: 1.5rem; }
+    .footer-links a { font-size: 0.82rem; color: var(--muted); text-decoration: none; transition: color 0.2s; }
+    .footer-links a:hover { color: var(--text); }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 900px) {
+      nav { padding: 1rem 1.5rem; }
+      .nav-links { display: none; }
+      #hero { grid-template-columns: 1fr; padding: 6rem 1.5rem 3rem; }
+      .hero-right { display: none; }
+      section { padding: 4rem 1.5rem; }
+      #contact { grid-template-columns: 1fr; gap: 3rem; }
+      .projets-header { flex-direction: column; gap: 1rem; }
+      .projet-card.large, .projet-card.small, .projet-card.full { grid-column: span 12; }
+      footer { flex-direction: column; gap: 1rem; text-align: center; padding: 2rem 1.5rem; }
+      .form-row { grid-template-columns: 1fr; }
+      .processus-grid::before { display: none; }
+    }
+
+    /* ── SCROLL REVEAL ── */
+    .reveal { opacity: 0; transform: translateY(24px); transition: opacity 0.6s ease, transform 0.6s ease; }
+    .reveal.visible { opacity: 1; transform: translateY(0); }
+  </style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a href="#" class="nav-logo">Alex Moreau</a>
+  <ul class="nav-links">
+    <li><a href="#services">Services</a></li>
+    <li><a href="#projets">Projets</a></li>
+    <li><a href="#processus">Méthode</a></li>
+    <li><a href="#temoignages">Avis</a></li>
+  </ul>
+  <a href="#contact" class="nav-cta">Me contacter</a>
+</nav>
+
+<!-- HERO -->
+<section id="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-grid-lines"></div>
+
+  <div class="hero-left">
+    <div class="hero-badge">Disponible pour missions</div>
+    <h1>Développeur Web<br><em>Freelance</em><br>& Créateur de sites</h1>
+    <p class="hero-sub">Je conçois des sites vitrines, e-commerces et applications web qui convertissent — de la maquette au déploiement, livré dans les délais.</p>
+    <div class="hero-actions">
+      <a href="#projets" class="btn-primary">Voir mes projets →</a>
+      <a href="#contact" class="btn-ghost">Demander un devis</a>
+    </div>
+    <div class="hero-stats">
+      <div>
+        <div class="stat-num">20+</div>
+        <div class="stat-label">Projets livrés</div>
+      </div>
+      <div>
+        <div class="stat-num">98%</div>
+        <div class="stat-label">Clients satisfaits</div>
+      </div>
+      <div>
+        <div class="stat-num">3j</div>
+        <div class="stat-label">Délai moyen</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="hero-right">
+    <div class="hero-card-stack">
+      <div class="floating-card card-main">
+        <div class="card-label">Projet en cours</div>
+        <div class="card-title">Site E-commerce Mode</div>
+        <div class="card-bar"><div class="card-bar-fill" style="width:78%"></div></div>
+        <div style="font-size:0.75rem;color:var(--muted)">78% — Livraison vendredi</div>
+        <div class="card-tech">
+          <span class="tech-pill">React</span>
+          <span class="tech-pill">Tailwind</span>
+          <span class="tech-pill">Stripe</span>
+        </div>
+      </div>
+      <div class="floating-card card-code">
+        <div class="code-line"><span class="code-kw">const</span> result = <span class="code-kw">await</span></div>
+        <div class="code-line">  fetch(<span class="code-str">'/api/checkout'</span>)</div>
+        <div class="code-line" style="color:var(--accent)">  ✓ 200 OK · 48ms</div>
+      </div>
+      <div class="floating-card card-tag">
+        <div class="tag-icon">⚡</div>
+        <div class="tag-score">99</div>
+        <div class="tag-text">Perf. Lighthouse</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SERVICES -->
+<section id="services">
+  <div class="services-header reveal">
+    <div class="section-label">Ce que je fais</div>
+    <h2>Des solutions web<br>clés en main</h2>
+    <p class="section-sub">Chaque projet est conçu sur mesure, avec un code propre et des performances optimales.</p>
+  </div>
+  <div class="services-grid">
+    <div class="service-card reveal">
+      <div class="service-icon">🖥️</div>
+      <h3>Sites Vitrines</h3>
+      <p>Un site élégant et rapide qui présente votre activité et génère des contacts qualifiés. Optimisé SEO dès le départ.</p>
+      <div class="service-tags">
+        <span class="service-tag">HTML/CSS</span>
+        <span class="service-tag">React</span>
+        <span class="service-tag">SEO</span>
+      </div>
+    </div>
+    <div class="service-card reveal">
+      <div class="service-icon">🛒</div>
+      <h3>E-Commerce</h3>
+      <p>Boutiques en ligne performantes avec paiement sécurisé, gestion des stocks et expérience d'achat fluide.</p>
+      <div class="service-tags">
+        <span class="service-tag">Stripe</span>
+        <span class="service-tag">WooCommerce</span>
+        <span class="service-tag">Shopify</span>
+      </div>
+    </div>
+    <div class="service-card reveal">
+      <div class="service-icon">⚙️</div>
+      <h3>Applications Web</h3>
+      <p>Tableaux de bord, outils métier, portails clients. Des apps fiables pensées pour vos équipes.</p>
+      <div class="service-tags">
+        <span class="service-tag">Next.js</span>
+        <span class="service-tag">Node.js</span>
+        <span class="service-tag">API REST</span>
+      </div>
+    </div>
+    <div class="service-card reveal">
+      <div class="service-icon">🎨</div>
+      <h3>Refonte & Optimisation</h3>
+      <p>Votre site existe mais ne convertit pas ? Je l'analyse, le redesigne et améliore ses performances.</p>
+      <div class="service-tags">
+        <span class="service-tag">Audit</span>
+        <span class="service-tag">Lighthouse</span>
+        <span class="service-tag">Conversion</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PROJETS -->
+<section id="projets">
+  <div class="projets-header reveal">
+    <div>
+      <div class="section-label">Portfolio</div>
+      <h2>Projets récents</h2>
+    </div>
+    <a href="#contact" class="btn-ghost" style="white-space:nowrap">Voir plus →</a>
+  </div>
+  <div class="projets-grid">
+    <div class="projet-card large reveal">
+      <div class="projet-thumb thumb-1">🌿</div>
+      <div class="projet-body">
+        <div class="projet-meta">
+          <span class="projet-type">E-Commerce</span>
+          <span class="projet-year">2024</span>
+        </div>
+        <h3>Botanica — Boutique plantes rares</h3>
+        <p>Site e-commerce complet avec catalogue, panier, paiement Stripe et espace client. +240% de conversion vs l'ancien site.</p>
+        <div class="projet-footer">
+          <div class="projet-stack">
+            <div class="stack-dot">⚛️</div>
+            <div class="stack-dot">🟦</div>
+            <div class="stack-dot">💳</div>
+          </div>
+          <a href="#" class="projet-link">Voir le projet ↗</a>
+        </div>
+      </div>
+    </div>
+    <div class="projet-card small reveal">
+      <div class="projet-thumb thumb-2">📊</div>
+      <div class="projet-body">
+        <div class="projet-meta">
+          <span class="projet-type">Application</span>
+          <span class="projet-year">2024</span>
+        </div>
+        <h3>Dashboard RH interne</h3>
+        <p>Interface de gestion des congés et absences pour une PME de 50 salariés.</p>
+        <div class="projet-footer">
+          <div class="projet-stack">
+            <div class="stack-dot">N</div>
+            <div class="stack-dot">🐘</div>
+          </div>
+          <a href="#" class="projet-link">Voir ↗</a>
+        </div>
+      </div>
+    </div>
+    <div class="projet-card small reveal">
+      <div class="projet-thumb thumb-3">🏡</div>
+      <div class="projet-body">
+        <div class="projet-meta">
+          <span class="projet-type">Vitrine</span>
+          <span class="projet-year">2023</span>
+        </div>
+        <h3>Agence immobilière Prestige</h3>
+        <p>Site vitrine avec système de filtres propriétés et formulaire de prise de RDV.</p>
+        <div class="projet-footer">
+          <div class="projet-stack">
+            <div class="stack-dot">⚛️</div>
+          </div>
+          <a href="#" class="projet-link">Voir ↗</a>
+        </div>
+      </div>
+    </div>
+    <div class="projet-card large reveal">
+      <div class="projet-thumb thumb-4">🍽️</div>
+      <div class="projet-body">
+        <div class="projet-meta">
+          <span class="projet-type">Vitrine + Réservation</span>
+          <span class="projet-year">2023</span>
+        </div>
+        <h3>Restaurant Kaito — Site & Réservations</h3>
+        <p>Site bilingue FR/EN avec système de réservation en ligne intégré, menu interactif et galerie photo.</p>
+        <div class="projet-footer">
+          <div class="projet-stack">
+            <div class="stack-dot">⚛️</div>
+            <div class="stack-dot">🌐</div>
+            <div class="stack-dot">📅</div>
+          </div>
+          <a href="#" class="projet-link">Voir le projet ↗</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PROCESSUS -->
+<section id="processus">
+  <div class="reveal" style="text-align:center;max-width:600px;margin:0 auto">
+    <div class="section-label">Ma méthode</div>
+    <h2>De l'idée au site en ligne</h2>
+    <p class="section-sub" style="margin:0 auto">Un process clair, sans surprise, avec des points d'étape réguliers.</p>
+  </div>
+  <div class="processus-grid">
+    <div class="step reveal">
+      <div class="step-num">1</div>
+      <h3>Découverte</h3>
+      <p>Appel de 30 min pour comprendre votre activité, vos objectifs et votre budget.</p>
+    </div>
+    <div class="step reveal">
+      <div class="step-num">2</div>
+      <h3>Proposition</h3>
+      <p>Devis détaillé, maquette fil de fer et planning de livraison sous 48h.</p>
+    </div>
+    <div class="step reveal">
+      <div class="step-num">3</div>
+      <h3>Développement</h3>
+      <p>Accès à un lien de prévisualisation dès J+3. Retours et itérations inclus.</p>
+    </div>
+    <div class="step reveal">
+      <div class="step-num">4</div>
+      <h3>Livraison</h3>
+      <p>Mise en ligne, formation, et support 30 jours inclus après chaque projet.</p>
+    </div>
+  </div>
+</section>
+
+<!-- TÉMOIGNAGES -->
+<section id="temoignages">
+  <div class="reveal" style="margin-bottom:1rem">
+    <div class="section-label">Ils témoignent</div>
+    <h2>Ce que disent mes clients</h2>
+  </div>
+  <div class="temoignages-grid">
+    <div class="temoignage-card reveal">
+      <div class="stars">★★★★★</div>
+      <blockquote>"Alex a livré notre boutique en ligne en exactement 10 jours comme promis. Le résultat dépasse nos attentes, nos ventes ont doublé en 3 mois."</blockquote>
+      <div class="temoignage-author">
+        <div class="author-avatar">👩</div>
+        <div>
+          <div class="author-name">Sophie L.</div>
+          <div class="author-role">Fondatrice, Botanica Paris</div>
+        </div>
+      </div>
+    </div>
+    <div class="temoignage-card reveal">
+      <div class="stars">★★★★★</div>
+      <blockquote>"Très réactif, code propre et documenté. Il a su vulgariser des aspects techniques complexes pour notre équipe non-technique. Je recommande."</blockquote>
+      <div class="temoignage-author">
+        <div class="author-avatar">👨</div>
+        <div>
+          <div class="author-name">Marc D.</div>
+          <div class="author-role">DRH, PME Logistique</div>
+        </div>
+      </div>
+    </div>
+    <div class="temoignage-card reveal">
+      <div class="stars">★★★★★</div>
+      <blockquote>"Notre site est maintenant en 1ère page Google et les réservations ont augmenté de 60%. Alex a vraiment pris le temps de comprendre notre vision."</blockquote>
+      <div class="temoignage-author">
+        <div class="author-avatar">🧑</div>
+        <div>
+          <div class="author-name">Kenji M.</div>
+          <div class="author-role">Gérant, Restaurant Kaito</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact">
+  <div class="contact-left reveal">
+    <div class="section-label">Contact</div>
+    <h2>Parlons de votre projet</h2>
+    <p>Un projet en tête ? Une question ? Répondez au formulaire ou contactez-moi directement. Je réponds sous 24h.</p>
+    <div class="contact-info">
+      <div class="contact-item">
+        <div class="contact-item-icon">📧</div>
+        <span>alex.moreau@dev.fr</span>
+      </div>
+      <div class="contact-item">
+        <div class="contact-item-icon">📍</div>
+        <span>Paris — disponible à distance</span>
+      </div>
+      <div class="contact-item">
+        <div class="contact-item-icon">⏱️</div>
+        <span>Réponse sous 24h · Devis gratuit</span>
+      </div>
+      <div class="contact-item">
+        <div class="contact-item-icon">💼</div>
+        <span>Profil Codeur.com · Malt · LinkedIn</span>
+      </div>
+    </div>
+  </div>
+  <div class="contact-right reveal">
+    <div class="form-row">
+      <div class="form-group">
+        <label>Prénom *</label>
+        <input type="text" placeholder="Jean" />
+      </div>
+      <div class="form-group">
+        <label>Nom *</label>
+        <input type="text" placeholder="Dupont" />
+      </div>
+    </div>
+    <div class="form-group">
+      <label>Email *</label>
+      <input type="email" placeholder="jean@example.com" />
+    </div>
+    <div class="form-group">
+      <label>Type de projet</label>
+      <select>
+        <option value="">— Choisir —</option>
+        <option>Site vitrine</option>
+        <option>E-commerce</option>
+        <option>Application web</option>
+        <option>Refonte / optimisation</option>
+        <option>Autre</option>
+      </select>
+    </div>
+    <div class="form-group">
+      <label>Budget estimé</label>
+      <select>
+        <option value="">— Choisir —</option>
+        <option>Moins de 500 €</option>
+        <option>500 € – 1 500 €</option>
+        <option>1 500 € – 5 000 €</option>
+        <option>Plus de 5 000 €</option>
+      </select>
+    </div>
+    <div class="form-group">
+      <label>Décrivez votre projet *</label>
+      <textarea placeholder="Parlez-moi de votre activité, vos objectifs, vos délais..."></textarea>
+    </div>
+    <button class="form-submit" onclick="handleSubmit(event)">Envoyer ma demande ✦</button>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <span class="footer-logo">Alex Moreau</span>
+  <span class="footer-text">© 2024 · Développeur Web Freelance · Paris</span>
+  <div class="footer-links">
+    <a href="#">LinkedIn</a>
+    <a href="#">GitHub</a>
+    <a href="#">Codeur.com</a>
+  </div>
+</footer>
+
+<script>
+  // Scroll reveal
+  const reveals = document.querySelectorAll('.reveal');
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach((entry, i) => {
+      if (entry.isIntersecting) {
+        setTimeout(() => entry.target.classList.add('visible'), i * 80);
+        observer.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.1 });
+  reveals.forEach(el => observer.observe(el));
+
+  // Staggered children reveal
+  document.querySelectorAll('.services-grid, .temoignages-grid, .processus-grid').forEach(grid => {
+    [...grid.children].forEach((child, i) => {
+      child.style.transitionDelay = `${i * 0.1}s`;
+    });
+  });
+
+  // Form submit
+  function handleSubmit(e) {
+    e.preventDefault();
+    const btn = e.target;
+    btn.textContent = '✓ Message envoyé !';
+    btn.style.background = '#60f0a0';
+    btn.disabled = true;
+    setTimeout(() => {
+      btn.textContent = 'Envoyer ma demande ✦';
+      btn.style.background = '';
+      btn.disabled = false;
+    }, 3000);
+  }
+
+  // Active nav link highlight
+  const sections = document.querySelectorAll('section[id]');
+  const navLinks = document.querySelectorAll('.nav-links a');
+  window.addEventListener('scroll', () => {
+    let current = '';
+    sections.forEach(s => {
+      if (window.scrollY >= s.offsetTop - 200) current = s.id;
+    });
+    navLinks.forEach(a => {
+      a.style.color = a.getAttribute('href') === `#${current}` ? 'var(--text)' : '';
+    });
+  });
+</script>
+</body>
+</html>
